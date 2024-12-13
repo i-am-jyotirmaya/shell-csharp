@@ -7,4 +7,12 @@ using System.Net.Sockets;
 Console.Write("$ ");
 
 // Wait for user input
-Console.ReadLine();
+string? command = Console.ReadLine();
+if (string.IsNullOrEmpty(command))
+{
+    Console.WriteLine($"{command}: command not found");
+}
+
+Console.WriteLine($"{command}: command not found");
+
+
