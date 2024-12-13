@@ -8,11 +8,17 @@ Console.Write("$ ");
 
 // Wait for user input
 string? command = Console.ReadLine();
-if (string.IsNullOrEmpty(command))
+do
 {
-    Console.WriteLine($"{command}: command not found");
-}
+    if (string.IsNullOrEmpty(command))
+    {
+        Console.WriteLine($"{command}: command not found");
+    }
 
-Console.WriteLine($"{command}: command not found");
+    Console.WriteLine($"{command}: command not found");
+
+    Console.Write("$ ");
+    command = Console.ReadLine();
+} while (command != "exit");
 
 
