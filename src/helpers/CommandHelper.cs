@@ -16,7 +16,7 @@ public static class CommandHelper
             tokens.Add(token);
         }
 
-        return [.. tokens];
+        return tokens.ToArray();
     }
 
     public static IEnumerable<string> GetBuiltinCommands()

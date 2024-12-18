@@ -10,7 +10,7 @@ public class TerminalHelper
             RenderCommandNotFound(string.Empty);
         }
 
-        return command!;
+        return command!.Trim();
     }
 
     public static void RenderCommandNotFound(string command)

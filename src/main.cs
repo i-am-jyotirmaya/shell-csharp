@@ -45,7 +45,6 @@ do
             }
             break;
         default:
-            Console.Write("");
             Console.WriteLine($"{shellCommand}: command not found");
             break;
     }
