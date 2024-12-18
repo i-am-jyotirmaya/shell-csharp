@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 public static class CommandHelper
@@ -16,5 +17,13 @@ public static class CommandHelper
         }
 
         return [.. tokens];
+    }
+
+    public static IEnumerable<string> GetBuiltinCommands()
+    {
+        var commands = typeof(BuiltinCommands).GetFields(BindingFlags.Public | BindingFlags.Static)
+                        .Where(field => field.FieldType == typeof(string))
+                        .Select(field => field.GetRawConstantValue() as string);
+        return commands!;
     }
 }

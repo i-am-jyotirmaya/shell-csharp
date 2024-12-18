@@ -7,8 +7,19 @@ do
 
     switch (shellCommand)
     {
-        case Commands.ECHO:
+        case BuiltinCommands.ECHO:
             Console.WriteLine(string.Join(" ", shellCommandArgs));
+            break;
+        case BuiltinCommands.TYPE:
+            string argCommand = shellCommandArgs.First();
+            IEnumerable<string> type = CommandHelper.GetBuiltinCommands();
+            if (type.Contains(argCommand))
+            {
+                Console.WriteLine($"{argCommand} is a shell builtin");
+                break;
+            }
+
+            Console.WriteLine($"{argCommand}: not found");
             break;
         default:
             Console.WriteLine($"{shellCommand}: command not found");
