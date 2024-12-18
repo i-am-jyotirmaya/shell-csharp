@@ -4,10 +4,7 @@ do
     string[] tokens = command.GetCommandTokens();
     string shellCommand = tokens[0];
     string[] shellCommandArgs = tokens.Length > 1 ? tokens[1..] : [];
-    if (shellCommand == "invalid_mango_command")
-    {
-        Console.WriteLine(command, tokens, shellCommand, shellCommandArgs);
-    }
+
     switch (shellCommand)
     {
         case BuiltinCommands.ECHO:
@@ -48,6 +45,7 @@ do
             }
             break;
         default:
+            Console.Write("");
             Console.WriteLine($"{shellCommand}: command not found");
             break;
     }
