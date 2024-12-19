@@ -5,15 +5,17 @@ public class ExternalCommandsHelper
     private ExternalCommandsHelper()
     {
         string? path = Environment.GetEnvironmentVariable("PATH");
+        if (path is not null && path.Contains(DirectoryHelper.Instance.CurrentDirectory))
+        {
+            path += $":{DirectoryHelper.Instance.CurrentDirectory}";
+        }
         // Process the path string
         if (path != null)
         {
             var pathStrings = path.Split(':');
             foreach (string pathString in pathStrings)
             {
-                string[] programsInDirectory = [
-                    ..FileSystemHelper.GetProgramsInDirectory(pathString),
-                    DirectoryHelper.Instance.CurrentDirectory];
+                string[] programsInDirectory = FileSystemHelper.GetProgramsInDirectory(pathString);
 
                 foreach (string program in programsInDirectory)
                 {
