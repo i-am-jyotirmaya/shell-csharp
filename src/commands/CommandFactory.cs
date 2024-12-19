@@ -7,6 +7,7 @@ public static class CommandFactory
             BuiltinCommands.ECHO => new EchoCommand(commandArguments),
             BuiltinCommands.TYPE => new TypeCommand(commandArguments),
             BuiltinCommands.PWD => new PwdCommand(commandArguments),
+            BuiltinCommands.CD => new CdCommand(commandArguments),
             _ => new ExternalCommand(commandName, commandArguments)
         };
     }

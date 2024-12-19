@@ -11,7 +11,10 @@ public class ExternalCommandsHelper
             var pathStrings = path.Split(':');
             foreach (string pathString in pathStrings)
             {
-                string[] programsInDirectory = FileSystemHelper.GetProgramsInDirectory(pathString);
+                string[] programsInDirectory = [
+                    ..FileSystemHelper.GetProgramsInDirectory(pathString),
+                    DirectoryHelper.Instance.CurrentDirectory];
+
                 foreach (string program in programsInDirectory)
                 {
                     string command = program.Split('/').Last();

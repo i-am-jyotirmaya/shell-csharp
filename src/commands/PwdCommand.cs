@@ -6,8 +6,7 @@ public class PwdCommand : BuiltinCommand
     }
     public override Task Execute()
     {
-        string currentDirectory = Directory.GetCurrentDirectory();
-        Console.WriteLine(currentDirectory);
+        Console.WriteLine(DirectoryHelper.Instance.CurrentDirectory);
         return Task.CompletedTask;
     }
 }
