@@ -16,7 +16,8 @@ public class DirectoryHelper
     public void ChangeDirectory(string newDirectory)
     {
         string[] directorySegment = newDirectory.Split('/');
-        string tempDirectory = directorySegment[0] == "" ? "/" : CurrentDirectory;
+        string tempDirectory = directorySegment[0] == "" ? "/"
+            : directorySegment[0] == "." ? CurrentDirectory : directorySegment[0];
         for (int i = 1; i < directorySegment.Length; i++)
         {
             tempDirectory = Path.Combine(tempDirectory, directorySegment[i]);
