@@ -6,7 +6,14 @@ public class CdCommand : BuiltinCommand
     }
     public override Task Execute()
     {
-        DirectoryHelper.Instance.ChangeDirectory(CommandArguments);
+        try
+        {
+            DirectoryHelper.Instance.ChangeDirectory(CommandArguments);
+        }
+        catch (DirectoryNotFoundException)
+        {
+            Console.WriteLine($"cd: {CommandArguments}: No such file or directory");
+        }
         return Task.CompletedTask;
     }
 }
