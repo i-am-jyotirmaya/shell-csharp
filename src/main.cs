@@ -5,7 +5,7 @@ do
     string shellCommand = tokens[0];
     string[] shellCommandArgs = tokens.Length > 1 ? tokens[1..] : [];
 
-    var cmd = CommandFactory.CreateCommand(shellCommand, string.Join(" ", shellCommandArgs));
+    var cmd = CommandFactory.CreateCommand(shellCommand, shellCommandArgs);
 
     if (cmd is ExternalCommand && !ExternalCommandsHelper.Instance.IsExternalCommand(shellCommand))
     {
@@ -18,6 +18,3 @@ do
 
     command = TerminalHelper.PromptAndGetShellInput();
 } while (command != "exit 0");
-
-
-

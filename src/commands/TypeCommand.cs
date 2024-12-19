@@ -1,12 +1,12 @@
 public class TypeCommand : BuiltinCommand
 {
-    public TypeCommand(string commandArguments) : base(BuiltinCommands.TYPE, commandArguments)
+    public TypeCommand(string[] commandArguments) : base(BuiltinCommands.TYPE, commandArguments)
     {
     }
 
     public override Task Execute()
     {
-        string argCommand = CommandArguments.Split(' ')[0];
+        string argCommand = CommandArguments[0];
 
         if (CommandHelper.GetBuiltinCommands().Contains(argCommand))
         {

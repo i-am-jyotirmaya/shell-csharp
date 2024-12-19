@@ -1,7 +1,7 @@
 
 public class PwdCommand : BuiltinCommand
 {
-    public PwdCommand(string commandArguments) : base(BuiltinCommands.PWD, commandArguments)
+    public PwdCommand() : base(BuiltinCommands.PWD, [])
     {
     }
     public override Task Execute()
