@@ -1,6 +1,7 @@
 public class ExternalCommandsHelper
 {
-    private static ExternalCommandsHelper? internalInstance;
+    private static readonly Lazy<ExternalCommandsHelper> _instance =
+        new(() => new ExternalCommandsHelper());
     private readonly Dictionary<string, string> externalProgramsMap = [];
     private ExternalCommandsHelper()
     {
@@ -20,21 +21,13 @@ public class ExternalCommandsHelper
                 foreach (string program in programsInDirectory)
                 {
                     string command = program.Split('/').Last();
-                    externalProgramsMap.Add(command, program);
+                    externalProgramsMap.TryAdd(command, program);
                 }
             }
         }
     }
 
-    public static ExternalCommandsHelper Instance
-    {
-        get
-        {
-            internalInstance ??= new ExternalCommandsHelper();
-
-            return internalInstance;
-        }
-    }
+    public static ExternalCommandsHelper Instance => _instance.Value;
 
     public bool IsExternalCommand(string command) => externalProgramsMap.ContainsKey(command);
 

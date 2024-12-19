@@ -1,33 +1,24 @@
 public class DirectoryHelper
 {
-    private static DirectoryHelper? internalInstance;
-    private DirectoryHelper() { }
-
-    public static DirectoryHelper Instance
+    private static readonly Lazy<DirectoryHelper> _instance = new(() => new DirectoryHelper());
+    private DirectoryHelper()
     {
-        get
-        {
-            internalInstance ??= new DirectoryHelper();
-            return internalInstance;
-        }
+        CurrentDirectory = Directory.GetCurrentDirectory();
     }
-    public string CurrentDirectory { get; private set; } = Directory.GetCurrentDirectory();
+
+    public static DirectoryHelper Instance => _instance.Value;
+
+    public string CurrentDirectory { get; private set; }
 
     public void ChangeDirectory(string newDirectory)
     {
-        string[] directorySegment = newDirectory.Split('/');
-        string tempDirectory = directorySegment[0] == "" ? "/"
-            : directorySegment[0] == "." ? CurrentDirectory : directorySegment[0];
-        for (int i = 1; i < directorySegment.Length; i++)
+        string targetDirectory = Path.GetFullPath(newDirectory, CurrentDirectory);
+
+        if (!Directory.Exists(targetDirectory))
         {
-            tempDirectory = Path.Combine(tempDirectory, directorySegment[i]);
-            if (!Directory.Exists(tempDirectory))
-            {
-                throw new DirectoryNotFoundException();
-            }
+            throw new DirectoryNotFoundException();
         }
 
-        CurrentDirectory = tempDirectory;
+        CurrentDirectory = targetDirectory;
     }
-
 }
