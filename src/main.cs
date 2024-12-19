@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 string command = TerminalHelper.PromptAndGetShellInput();
 do
 {
