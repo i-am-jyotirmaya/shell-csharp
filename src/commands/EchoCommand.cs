@@ -1,6 +1,6 @@
 public class EchoCommand : BuiltinCommand
 {
-    public EchoCommand(string commandName, string commandArguments) : base(commandName, commandArguments)
+    public EchoCommand(string commandArguments) : base(BuiltinCommands.ECHO, commandArguments)
     {
     }
 

@@ -4,8 +4,9 @@ public static class CommandFactory
     {
         return commandName.ToLower() switch
         {
-            BuiltinCommands.ECHO => new EchoCommand(commandName, commandArguments),
-            BuiltinCommands.TYPE => new TypeCommand(commandName, commandArguments),
+            BuiltinCommands.ECHO => new EchoCommand(commandArguments),
+            BuiltinCommands.TYPE => new TypeCommand(commandArguments),
+            BuiltinCommands.PWD => new PwdCommand(commandArguments),
             _ => new ExternalCommand(commandName, commandArguments)
         };
     }

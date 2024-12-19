@@ -1,6 +1,6 @@
 public class TypeCommand : BuiltinCommand
 {
-    public TypeCommand(string commandName, string commandArguments) : base(commandName, commandArguments)
+    public TypeCommand(string commandArguments) : base(BuiltinCommands.TYPE, commandArguments)
     {
     }
 
