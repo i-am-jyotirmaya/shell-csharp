@@ -12,6 +12,11 @@ public class DirectoryHelper
 
     public void ChangeDirectory(string newDirectory)
     {
+        if (newDirectory.StartsWith("~/") || newDirectory == "~")
+        {
+            newDirectory = newDirectory.Replace("~", Environment.GetEnvironmentVariable("HOME")!.TrimEnd('/'));
+        }
+
         string targetDirectory = Path.GetFullPath(newDirectory, CurrentDirectory).TrimEnd('/');
 
         if (!Directory.Exists(targetDirectory))
