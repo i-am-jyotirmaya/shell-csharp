@@ -12,7 +12,7 @@ public class CdCommand : BuiltinCommand
         }
         catch (DirectoryNotFoundException)
         {
-            Console.WriteLine($"cd: {CommandArguments}: No such file or directory");
+            Console.WriteLine($"cd: {CommandArguments[0]}: No such file or directory");
         }
         return Task.CompletedTask;
     }
