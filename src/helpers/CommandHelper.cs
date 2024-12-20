@@ -3,21 +3,30 @@ using System.Text.RegularExpressions;
 
 public static class CommandHelper
 {
+    // This function safely parses a command string into tokens
+    // It handles spaces, quotes, and escape characters
+    // Example: "echo \"Hello, 'World!'\"" returns ["echo", "Hello, 'World!'"]
     public static string[] GetCommandTokens(this string command)
     {
-        var regex = new Regex(@"[^\s""']+|([""'])(.*?)\1");
-        var matches = regex.Matches(command);
-
-        List<string> tokens = [];
-
-        foreach (Match match in matches)
+        string[] commandSplit = command.Split(' ');
+        List<string> tokens = [commandSplit[0]];
+        string shellCommandArgs = commandSplit.Length > 1 ? command[(tokens[0].Length + 1)..]
+            : string.Empty;
+        var argsArray = Regex.IsMatch(shellCommandArgs, "^['\"]") switch
         {
-            string token = match.Groups[2].Success ? match.Groups[2].Value : match.Value;
-            tokens.Add(token);
-        }
+            true => Regex.Matches(shellCommandArgs, $"{shellCommandArgs[0]}(.*?){shellCommandArgs[0]}")
+                        .Select(m => m.Groups[1].Value)
+                        .ToArray(),
+            false => Regex.Split(command, "\\s+")
+                         .Skip(1)
+                         .Select(s => s.Replace("\\", ""))
+                         .ToArray()
+        };
 
-        return tokens.ToArray();
+        tokens.AddRange(argsArray);
+        return [.. tokens];
     }
+
 
     public static IEnumerable<string> GetBuiltinCommands()
     {
